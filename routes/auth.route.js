@@ -1,5 +1,5 @@
 import express from "express";
 import {sign} from '../controllers/signup.controller.js'
-const auth=express();
-auth.post("/auth",sign)
-export default auth; 
+const router=express.Router();
+router.post("/signup",sign)
+export default router; 

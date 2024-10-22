@@ -5,6 +5,7 @@ import router1 from './routes/user.route.js'
 import auth from './routes/auth.route.js'
 const app=express()
 configDotenv()
+app.use(express.json())
 
 mongoose.connect(process.env.MONGO)
 .then(()=>{
@@ -17,5 +18,8 @@ mongoose.connect(process.env.MONGO)
 app.listen(3000,()=>{
     console.log("hello")  
 });
-app.use("/test",router1)
-app.use("/auth",auth)
+app.get('/',(req,res)=>{
+    res.send("hello")
+})
+app.use("/api/user",router1)
+app.use("/api/auth",auth)
