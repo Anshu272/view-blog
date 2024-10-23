@@ -1,7 +1,7 @@
 import React from "react";
 import { Label, TextInput, Button, Alert, Spinner } from "flowbite-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link} from "react-router-dom";
 
 const Signup = () => {
   const [formdata, setformdata] = useState({});
@@ -92,6 +92,9 @@ const Signup = () => {
               "Signup"
             )}
           </Button>
+          <div>
+            Already have an account?<span><Link to='/signin' className="text-blue-500"> Sign-in</Link></span>
+          </div>
           {errormessage && (
             <Alert className="mt-5 " color="failure">
               {errormessage}
