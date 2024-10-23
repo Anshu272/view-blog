@@ -25,7 +25,7 @@ app.use("/api/user",router1)
 app.use("/api/auth",auth)
 app.use((error,req,res,next)=>{
     const errcode=error.statusCode || 500
-    const errmsg=error.statusMessage || "internal server error"
+    const errmsg=error.message || "internal Time server error"
     res.status(errcode).json({
         success:false,
         errmsg,

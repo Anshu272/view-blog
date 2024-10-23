@@ -15,7 +15,7 @@ export const sign= async (req,res,next)=>{
     });
     try {
         await user.save()
-        res.send('sucess')     
+        res.send({'working':'success'})     
     } catch (error) {
         next(error)
     }
