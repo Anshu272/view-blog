@@ -7,6 +7,7 @@ import Home from './Pages/Home'
 import Project from './Pages/Project'
 import Signin from './Pages/Signin'
 import Signup from './Pages/Signup'
+import Footercomp from './components/Footer'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <Route path="/" element={<Home />}>     </Route>
       <Route path="/" element={<Home />}>     </Route>
     </Routes>
+    <Footercomp/>
     </BrowserRouter>
 
   )
