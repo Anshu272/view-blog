@@ -5,7 +5,7 @@ import React from 'react'
 
 const Footercomp = () => {
   return (
-    <Footer className='w-[100%] border border-teal-500 border-t-8 h-[30vh] box-border '>
+    <Footer className='w-[100%] border border-teal-500 border-t-8 h-[30vh] box-border bg-white text-gray-700 dark:text-gray-200 dark:bg-[rgb(16,23,42)]'>
  <div className='pl-10 pt-10 pb-10'> 
  <Link to={"/"} className='text-white  bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800  rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2  font-bold'> ViewBlog </Link>
         <div className='grid grid-cols-3 mt-10 '>
