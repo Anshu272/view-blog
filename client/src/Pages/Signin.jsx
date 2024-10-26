@@ -8,6 +8,7 @@ import { Signinfailure,Signinstart,Signinsuccess } from "../redux/user/userslice
 const Signin = () => {
   const [formdata, setformdata] = useState({});
   const {loading,error:errormessage}=useSelector(state=>state.user)
+  console.log(useSelector(state=>state.user))
   const dispatch=useDispatch()
   const navigate=useNavigate();
   const handleform = (e) => {

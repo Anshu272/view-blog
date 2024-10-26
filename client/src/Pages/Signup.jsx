@@ -1,7 +1,6 @@
 import React from "react";
 import { Label, TextInput, Button, Alert, Spinner } from "flowbite-react";
 import { useState } from "react";
-import {AiFillGoogleCircle} from 'react-icons/ai'
 import { useNavigate ,Link} from "react-router-dom";
 import OAuth  from "../components/OAuth";
 
