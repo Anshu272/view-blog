@@ -76,7 +76,7 @@ export const google = async (req,res,next) => {
         const newUser= new User({
             username:name.toLowerCase().split('').join('')+ Math.random().toString(9).slice(-4),    
             email,
-            password:hashpassword,
+            password:hashpassword ,
             profilePicture:googlephotoURL,
         });
         await newUser.save()
@@ -84,7 +84,7 @@ export const google = async (req,res,next) => {
         const { password, ...rest } = newUser._doc;
         res
           .status(200)
-          .cookie("access_token", token, {
+          .cookie("access_token", token , {
             httpOnly: true,
           })
           .json(rest);
