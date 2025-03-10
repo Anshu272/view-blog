@@ -40,7 +40,7 @@ const Signin = () => {
     }
   };
   return (
-    <div className="w-[100%]  h-screen bg-red-50 flex border-black border-solid">
+    <div className="w-[100%]  h-screen flex border-black border-solid">
       <div className="w-1/2 h-full flex justify-center pt-60">
         <div className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800  rounded-full text-5xl px-5 py-2.5 text-center me-2 mb-2  font-extrabold w-1/2 h-1/5 flex justify-center items-center ">
           View Blog

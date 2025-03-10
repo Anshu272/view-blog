@@ -46,7 +46,7 @@ export default function DashSidebar() {
                 className={`flex items-center justify-start rounded-lg px-4 ${
                   tab === "profile"
                     ? "bg-gray-300 dark:bg-gray-700 font-semibold"
-                    : "hover:bg-gray-200 dark:hover:bg-gray-600"
+                    : "hover:bg-gray-200  dark:hover:bg-gray-600"
                 }`}
               >
                 Profile
