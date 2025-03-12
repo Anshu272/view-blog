@@ -1,7 +1,7 @@
 import { Alert, Button, TextInput, Modal ,ModalBody} from "flowbite-react";
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate} from "react-router-dom";
+import { useNavigate,Link} from "react-router-dom";
 
 import {
   getDownloadURL,
@@ -23,7 +23,7 @@ import {
 import "react-circular-progressbar/dist/styles.css";
 
 export default function DashProfile() {
-  const { currentUser,error} = useSelector((state) => state.user);
+  const { currentUser,error,loading} = useSelector((state) => state.user);
   const [imgurl, setimgurl] = useState(null);
   const [imgfile, setimgfile] = useState(null);
   const [imgfileupload, setimgfileupload] = useState(null);
@@ -231,10 +231,18 @@ try {
         />
         <Button
           className="w-[90%] max-w-[600px] bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-extrabold rounded-lg  px-4 py-0.5 text-center   text-white"
-          type="submit"
+          type="submit" disabled={loading || imageFileUploading}
         >
-          Update
+          {loading?'Loading...':'Update'}
         </Button>
+        <Link to={'/create-post'} className="w-full flex justify-center ">
+        <Button
+          className="w-[90%] max-w-[600px] bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg  px-4 py-0.5 text-center  text-lg text-white"  
+        >
+          Create a post
+
+        </Button></Link>
+
         <div className="text-red-500 flex w-[90%] max-w-[600px] justify-between  ">
           <span className="cursor-pointer" onClick={()=>setShowModal(true)}>Delete Account</span>
           <span className="cursor-pointer" onClick={handleSignOut}>Sign Out</span>
