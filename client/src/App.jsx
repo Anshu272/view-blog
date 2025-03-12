@@ -10,7 +10,7 @@ import Signup from './Pages/Signup'
 import Footercomp from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
 import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute'
-import CreatePost from './components/CreatePost'
+import CreatePost from './Pages/CreatePost'
 
 const App = () => {
   return (
