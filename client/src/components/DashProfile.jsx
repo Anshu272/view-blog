@@ -1,6 +1,8 @@
 import { Alert, Button, TextInput, Modal ,ModalBody} from "flowbite-react";
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate} from "react-router-dom";
+
 import {
   getDownloadURL,
   getStorage,
@@ -33,6 +35,7 @@ export default function DashProfile() {
   const [formData, setformData] = useState({});
   const filepick = useRef();
   const dispatch = useDispatch();
+  const navigate=useNavigate();
 
   useEffect(() => {
     if (imgfile) {
@@ -146,9 +149,8 @@ try {
     console.log(data.message)
   }
   else{
-    dispatch(signoutSuccess(
-                                 
-    ))
+    dispatch(signoutSuccess( ))
+    navigate('/signin')
   }
 } catch (error) {
   console.log(error.message)
