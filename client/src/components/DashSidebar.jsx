@@ -9,10 +9,13 @@ import {
 } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function DashSidebar() {
   const location = useLocation();
   const [tab, setTab] = useState("");
+  const { currentUser} = useSelector((state) => state.user)
+  console.log(currentUser)
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get("tab");
@@ -43,6 +46,7 @@ export default function DashSidebar() {
               <Sidebar.Item
                 icon={HiUser}
                 as="div"
+                label={currentUser.isAdmin?'Admin':'User'}
                 className={`flex items-center justify-start rounded-lg px-4 ${
                   tab === "profile"
                     ? "bg-gray-300 dark:bg-gray-700 font-semibold"
