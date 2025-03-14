@@ -10,6 +10,7 @@ export default function DashUsers() {
   const [users, setUsers] = useState([]);
   const [showMore, setShowMore] = useState(true)
   const [showModal, setShowModal] = useState(false);
+  const [userIdToDelete, setUserIdToDelete] = useState('');
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -49,6 +50,24 @@ export default function DashUsers() {
       console.log(error.message);
     }
   };
+
+  const handleDeleteUser = async () => {
+    try {
+        const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+            method: 'DELETE',
+        });
+        const data = await res.json();
+        if (res.ok) {
+            setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+            setShowModal(false);
+        } else {
+            console.log(data.message);
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+  };
+
 
   return (
     <div className='table-auto w-full overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
@@ -96,7 +115,7 @@ export default function DashUsers() {
                     )}
                 </td>
                 <td className='px-6 py-4 whitespace-nowrap text-sm text-red-600 dark:text-red-400 hover:underline cursor-pointer'>
-                  <span onClick={() => {setShowModal(true)}} >
+                  <span onClick={() => {setShowModal(true);setUserIdToDelete(user._id)}} >
                     Delete
                   </span>
                 </td>
@@ -130,7 +149,7 @@ export default function DashUsers() {
               Are you sure you want to delete this post?
             </h3>
             <div className='flex justify-center gap-4'>
-              <Button className="bg-red-600 text-white ">
+              <Button className="bg-red-600 text-white " onClick={handleDeleteUser}>
                 Yes, I'm sure
               </Button>
               <Button color='gray' onClick={() => setShowModal(false)}>
