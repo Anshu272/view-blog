@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { FaThumbsUp } from 'react-icons/fa';
 import moment from 'moment';
 import { Textarea,Button } from "flowbite-react";
-export default function Comment({ comment, onLike,onEdit}) {
+export default function Comment({ comment, onLike,onEdit,onDelete}) {
     const [user, setUser] = useState({});
     const { currentUser } = useSelector((state) => state.user);
       const [isEditing, setIsEditing] = useState(false);
@@ -13,6 +13,8 @@ export default function Comment({ comment, onLike,onEdit}) {
         setIsEditing(true);
         setEditedContent(comment.content);
       };
+
+    
 
       const handleSave = async () => {
         try {
@@ -125,6 +127,7 @@ export default function Comment({ comment, onLike,onEdit}) {
                     <button
                       type='button'
                       className='text-gray-400 hover:text-red-500'
+                      onClick={()=>onDelete(comment._id)}
                     >
                       Delete
                     </button>
