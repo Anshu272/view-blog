@@ -2,46 +2,47 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCheck, FaTimes } from 'react-icons/fa';
 import { Modal ,Button} from 'flowbite-react';
 
-export default function DashUsers() {
+export default function DashComments() {
   const { currentUser } = useSelector((state) => state.user);
-  const [users, setUsers] = useState([]);
+  const [userComments, setUserComments] = useState([]);
   const [showMore, setShowMore] = useState(true)
   const [showModal, setShowModal] = useState(false);
-  const [userIdToDelete, setUserIdToDelete] = useState('');
+  const [commentIdToDelete, setcommentIdToDelete] = useState('');
+
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchComments = async () => {
       try {
-        const res = await fetch('/api/user/getusers');
+        const res = await fetch('/api/comment/getcomments');
         const data = await res.json();
         if (res.ok) {
-          setUsers(data.users);
-          if (data.users.length < 9) {
+          setUserComments(data.comments);
+          console.log(data)
+          if (data.comments.length < 9) {
             setShowMore(false);
           }
         }
       } catch (error) {
-        console.log("error.message");
+        console.log(error.message);
       }
     };
 
     if (currentUser.isAdmin) {
-      fetchUsers();
+      fetchComments();
     }
   }, [currentUser._id]);
   const handleShowMore = async () => {
-    const startIndex = users.length;
+    const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `/api/auth/getusers?startIndex=${startIndex}`
+        `/api/post/getcomments?startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
-        setUsers((prev) => [...prev, ...data.users]);
-        if (data.users.length < 9) {
+        setUserComments((prev) => [...prev, ...data.posts]);
+        if (data.comments.length < 9) {
           setShowMore(false);
         }
       }
@@ -49,15 +50,14 @@ export default function DashUsers() {
       console.log(error.message);
     }
   };
-
-  const handleDeleteUser = async () => {
+  const handleDeleteComment = async () => {
     try {
-        const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        const res = await fetch(`/api/comment/deleteComment/${commentIdToDelete}`, {
             method: 'DELETE',
         });
         const data = await res.json();
         if (res.ok) {
-            setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+            setUserComments((prev) => prev.filter((comment) => comment._id !== commentIdToDelete));
             setShowModal(false);
         } else {
             console.log(data.message);
@@ -70,22 +70,25 @@ export default function DashUsers() {
 
   return (
     <div className='table-auto w-full overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-      {currentUser.isAdmin && users.length > 0 ? (
+      {currentUser.isAdmin && userComments.length > 0 ? (
         <>
         <table className='min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden'>
           <thead className='bg-gray-50 dark:bg-gray-700'>
             <tr>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'>
-                Date created
+                Date updated
               </th>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'>
-                user image
+                Comment Content
               </th>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'>
-                username
+                No of likes
               </th>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'>
-                admin
+               PostID
+              </th>
+              <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'>
+                UserID
               </th>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider'>
                 Delete
@@ -93,31 +96,29 @@ export default function DashUsers() {
             </tr>
           </thead>
           <tbody className='bg-white dark:bg-gray-800 divide-y divide-gray-200'>
-            {users.map((user) => (
-              <tr key={user._id} className='hover:bg-gray-50 dark:hover:bg-gray-700'>
+            {userComments.map((comment) => (
+              <tr key={comment._id} className='hover:bg-gray-50 dark:hover:bg-gray-700'>
                 <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100'>
-                  {new Date(user.createdAt).toLocaleDateString()}
+                  {new Date(comment.updatedAt).toLocaleDateString()}
                 </td>
                 <td className='px-6 py-4 whitespace-nowrap'>
-                    <img className='w-12 h-12 object-cover bg-gray-500 rounded-full' src={user.profilePicture} alt='image'></img>
-  
+                  {comment.content}
                 </td>
                 <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100'>
-                    {user.username}
-    
+                  {comment.likes.length}
                 </td>
                 <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100'>
-                {user.isAdmin ? (
-                      <FaCheck className='text-green-500' />
-                    ) : (
-                      <FaTimes className='text-red-500' />
-                    )}
+                  {comment.postId}
+                </td>
+                <td className='px-6 py-4 whitespace-nowrap text-sm text-teal-600 dark:text-teal-400 hover:underline'>
+                  {comment.userId}
                 </td>
                 <td className='px-6 py-4 whitespace-nowrap text-sm text-red-600 dark:text-red-400 hover:underline cursor-pointer'>
-                  <span onClick={() => {setShowModal(true);setUserIdToDelete(user._id)}} >
+                  <span onClick={() => {setShowModal(true);setcommentIdToDelete(comment._id)}} >
                     Delete
                   </span>
                 </td>
+       
               </tr>
             ))}
           </tbody>
@@ -133,7 +134,7 @@ export default function DashUsers() {
               </>
         
       ) : (
-        <p className='text-gray-700 dark:text-gray-300'>You have no users</p>
+        <p className='text-gray-700 dark:text-gray-300'>You have no posts yet!</p>
       )}
       <Modal
         show={showModal}
@@ -148,7 +149,7 @@ export default function DashUsers() {
               Are you sure you want to delete this post?
             </h3>
             <div className='flex justify-center gap-4'>
-              <Button className="bg-red-600 text-white " onClick={handleDeleteUser}>
+              <Button className="bg-red-600 text-white " onClick={handleDeleteComment}>
                 Yes, I'm sure
               </Button>
               <Button color='gray' onClick={() => setShowModal(false)}>
