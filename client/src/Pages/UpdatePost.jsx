@@ -46,6 +46,7 @@ export default function UpdatePost() {
     }
   }, [postId]);
 
+
   const handleUpdloadImage = async () => {
     try {
       if (!file) {
@@ -178,3 +179,4 @@ export default function UpdatePost() {
 
   )
 }
+  
