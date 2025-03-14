@@ -1,6 +1,7 @@
 import { Button, Spinner } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import CallToAction from '../components/CallToAction';
 
 
 
@@ -65,7 +66,7 @@ export default function PostPage() {
         to={`/search?category=${post && post.category}`}
         className='self-center mt-5'
       >
-        <Button color='gray' pill size='xs'>
+        <Button className='rounded-full text-gray-500 w-32 h-5' pill size='xs'>
           {post && post.category}
         </Button>
       </Link>
@@ -92,6 +93,7 @@ export default function PostPage() {
         <div className='flex flex-wrap gap-5 mt-5 justify-center'>
         </div>
       </div>
+      <CallToAction/>
     </main>
   );
 }
