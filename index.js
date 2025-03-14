@@ -5,6 +5,7 @@ import router from './routes/user.route.js'
 import auth from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
 import post from './routes/post.route.js'
+import commentRoutes from './routes/comment.route.js'
 const app=express()
 configDotenv()
 app.use(express.json())
@@ -28,6 +29,7 @@ app.use("/api/user",router)
 app.use("/api/auth",auth)
 app.use("/api/auth",auth)
 app.use("/api/post",post)
+app.use("/api/comment",commentRoutes)
 app.use((error,req,res,next)=>{
     const errcode=error.statusCode || 500
     const errmsg=error.message || "internal Time server error"
