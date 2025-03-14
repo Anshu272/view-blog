@@ -1,13 +1,56 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { Textarea,Button } from 'flowbite-react';
+import { useState,useEffect } from 'react';
+import Comment from './Comment';
+import { Textarea,Button} from 'flowbite-react';
 
 export default function CommentSection({postId}) {
     const { currentUser } = useSelector((state) => state.user);
     const [comment, setComment] = useState('');
     const [commentError, setCommentError] = useState(null);
+    const [comments, setComments] = useState([]);
+    useEffect(() => {
+        const getComments = async () => {
+          try {
+            const res = await fetch(`/api/comment/getPostComments/${postId}`);
+            if (res.ok) {
+              const data = await res.json();
+              setComments(data);
+            }
+          } catch (error) {
+            console.log(error.message);
+          }
+        };
+        getComments();
+      }, [postId]);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (comment.length > 200) {
+          return;
+        }
+        try {
+          const res = await fetch('/api/comment/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              content: comment,
+              postId,
+              userId: currentUser._id,
+            }),
+          });
+          const data = await res.json();
+          if (res.ok) {
+            setComment('');
+            setCommentError(null);
+            setComments([data, ...comments]);
+          }
+        } catch (error) {
+          setCommentError(error.message);
+        }
+      };
   return (
     <div>
               {currentUser ? (
@@ -37,6 +80,7 @@ export default function CommentSection({postId}) {
       {currentUser && (
         <form
           className='border border-teal-500 rounded-md p-3'
+          onSubmit={handleSubmit}
         >
           <Textarea
             placeholder='Add a comment...'
@@ -60,6 +104,25 @@ export default function CommentSection({postId}) {
           )}
         </form>
       )}
+            {comments.length === 0 ? (
+        <p className='text-sm my-5'>No comments yet!</p>
+      ) : (
+        <>
+          <div className='text-sm my-5 flex items-center gap-1'>
+            <p>Comments</p>
+            <div className='border border-gray-400 py-1 px-2 rounded-sm'>
+              <p>{comments.length}</p>
+            </div>
+          </div>
+          {comments.map((comment) => (
+            <Comment
+              key={comment._id}
+              comment={comment}
+            />
+          ))}
+        </>
+      )}
+
       
     </div>
   )
