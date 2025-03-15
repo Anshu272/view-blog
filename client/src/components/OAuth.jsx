@@ -37,7 +37,7 @@ const OAuth = () => {
   };
   return (
     <div>
-      <Button className="w-3/5 h-12 text-black font-bold flex items-center justify-center border-black " onClick={handlegoogleclick}>
+      <Button className="w-3/5 h-12 text-gray-600 font-bold flex items-center justify-center border-gray-500 " onClick={handlegoogleclick}>
         <AiFillGoogleCircle className="w-6 h-6 mr-3" />
         <span>OAuth</span>
       </Button>
