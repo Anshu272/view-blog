@@ -235,13 +235,15 @@ try {
         >
           {loading?'Loading...':'Update'}
         </Button>
-        <Link to={'/create-post'} className="w-full flex justify-center ">
-        <Button
-          className="w-[90%] max-w-[600px] bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg  px-4 py-0.5 text-center  text-lg text-white"  
-        >
-          Create a post
+        {currentUser.isAdmin &&
+                <Link to={'/create-post'} className="w-full flex justify-center ">
+                <Button
+                  className="w-[90%] max-w-[600px] bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg  px-4 py-0.5 text-center  text-lg text-white"  
+                >
+                  Create a post
+        
+                </Button></Link>}
 
-        </Button></Link>
 
         <div className="text-red-500 flex w-[90%] max-w-[600px] justify-between  ">
           <span className="cursor-pointer" onClick={()=>setShowModal(true)}>Delete Account</span>

@@ -16,9 +16,9 @@ const Signin = () => {
   };
   const handlesubmit = async (e) => {
     e.preventDefault();
-    // if (!formdata.username || !formdata.email || !formdata.password){
-    //    return seterrormessage("fill out fields")
-    //   }
+    if (!formdata.username || !formdata.email || !formdata.password){
+        dispatch(Signinfailure("please fill out all fields"))
+      }
     try {
       dispatch(Signinstart());
       const res = await fetch("/api/auth/signin", {
@@ -82,7 +82,7 @@ const Signin = () => {
                 <span>Loading...</span>
               </>
             ) : (
-              "Signup"
+              "Signin"
             )}
           </Button>
           <div>

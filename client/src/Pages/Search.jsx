@@ -15,7 +15,7 @@ export default function Search() {
   const location = useLocation();
 
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get('searchTerm');
@@ -73,7 +73,6 @@ export default function Search() {
     urlParams.set('order', sidebarData.order);
     urlParams.set('category', sidebarData.category);
     const searchQuery = urlParams.toString();
-    console.log(searchQuery)
     navigate(`/search?${searchQuery}`);
   };
 

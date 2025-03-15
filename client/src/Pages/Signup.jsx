@@ -14,9 +14,9 @@ const Signup = () => {
   };
   const handlesubmit = async (e) => {
     e.preventDefault();
-    // if (!formdata.username || !formdata.email || !formdata.password){
-    //    return seterrormessage("fill out fields")
-    //   }
+   if (!formdata.username || !formdata.email || !formdata.password){
+    return seterrormessage('Please fill out all fields.');
+      }
     try {
       setloading(true);
       const res = await fetch("/api/auth/signup", {
