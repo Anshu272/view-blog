@@ -24,9 +24,6 @@ const __dirname = path.resolve();
 app.listen(3000,()=>{
     console.log("hello")  
 });
-app.get('/',(req,res)=>{
-    res.send("hello")
-})
 app.use("/api/user",router)
 app.use("/api/auth",auth)
 app.use("/api/auth",auth)
