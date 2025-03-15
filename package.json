@@ -1,7 +1,7 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "main": "Blog/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon BLOG/index.js",
