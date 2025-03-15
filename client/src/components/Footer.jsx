@@ -22,10 +22,7 @@ const Footercomp = () => {
           <div>
             <Footer.Title title='About' />
             <Footer.LinkGroup col>
-              <Footer.Link href='https://www.google.com'>
-                100 Js Projects
-              </Footer.Link>
-              <Footer.Link href='https://www.google.com'>
+              <Footer.Link href=''>
                 100 Js Projects
               </Footer.Link>
             </Footer.LinkGroup>
@@ -35,11 +32,11 @@ const Footercomp = () => {
           <div>
             <Footer.Title title='Resources' />
             <Footer.LinkGroup col>
-              <Footer.Link href='https://www.google.com'>
-                100 Js Projects
+              <Footer.Link href=''>
+                Discord
               </Footer.Link>
-              <Footer.Link href='https://www.google.com'>
-                100 Js Projects
+              <Footer.Link href=''>
+                Instagram
               </Footer.Link>
             </Footer.LinkGroup>
           </div>
@@ -48,10 +45,10 @@ const Footercomp = () => {
           <div>
             <Footer.Title title='Legal' />
             <Footer.LinkGroup col>
-              <Footer.Link href='https://www.google.com'>
+              <Footer.Link href=''>
                 Privacy Policy
               </Footer.Link>
-              <Footer.Link href='https://www.google.com'>
+              <Footer.Link href=''>
                 Terms & Conditions
               </Footer.Link>
             </Footer.LinkGroup>

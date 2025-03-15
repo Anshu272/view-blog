@@ -84,7 +84,7 @@ const Header = () => {
           />
         </form>
         <NavLink to="/search">
-          <Button className="w-12 h-10 lg:hidden text-gray" pill>
+          <Button className="w-12 h-10 lg:hidden text-gray " pill>
             <AiOutlineSearch />
           </Button>
         </NavLink>
@@ -120,7 +120,7 @@ const Header = () => {
         {/* User Actions */}
         <div className="flex justify-center items-center">
           <Button
-            className="rounded-3xl w-14 h-10 lg:flex md:flex justify-center hidden items-center mr-5"
+            className="rounded-3xl lg:w-14 lg:h-10 w-10 h-8 flex justify-center  items-center mr-5"
             onClick={() => dispatch(toogletheme())}
           >
             <AiOutlineMoon className="w-7 h-7 fill-black dark:fill-white" />
