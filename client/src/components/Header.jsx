@@ -1,17 +1,39 @@
 import { Avatar, Button, TextInput } from "flowbite-react";
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState ,useEffect} from "react";
+import { Link, NavLink ,useLocation,useNavigate} from "react-router-dom";
 import { AiOutlineMoon, AiOutlineSearch } from "react-icons/ai";
 import { useSelector,useDispatch } from "react-redux";
 import { toogletheme } from "../redux/theme/themeslice";
 
+
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const path = useLocation().pathname;
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch=useDispatch()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
   };
 
   return (
@@ -22,16 +44,18 @@ const Header = () => {
       >
         ViewBlog
       </Link>
-      <form>
+      <form onSubmit={handleSubmit}>
         <TextInput
-          type="text"
-          placeholder="Search..."
-          className="rounded-lg my-3 hidden lg:inline"
+          type='text'
+          placeholder='Search...'
+          className='hidden lg:inline'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button className="rounded-3xl w-16 h-10 flex justify-center items-center lg:hidden">
-          <AiOutlineSearch className="w-7 h-7 fill-black" />
-        </Button>
       </form>
+      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
+        <AiOutlineSearch />
+      </Button>
 
       <ul className="flex gap-10 font-semibold text-md">
         <li>
