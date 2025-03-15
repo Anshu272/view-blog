@@ -73,7 +73,7 @@ export default function DashPost() {
 
   return (
     <div className='table-auto w-full overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-      {currentUser.isAdmin ( userPosts.length > 0 ? (
+      {currentUser.isAdmin && userPosts.length > 0 ? (
         <>
         <table className='min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden'>
           <thead className='bg-gray-50 dark:bg-gray-700'>
@@ -148,7 +148,7 @@ export default function DashPost() {
         
       ) : (
         <p className='text-gray-700 dark:text-gray-300'>You have no posts yet!</p>
-      ))}
+      )}
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}

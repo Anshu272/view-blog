@@ -129,7 +129,7 @@ const Header = () => {
             <div className="relative">
               <div
                 onClick={toggleDropdown}
-                className="flex items-center text-sm pe-1 mb-2 lg:border-solid lg:border-2 lg:w-36 px-3 py-2 border-none font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+                className="flex items-center text-sm pe-1 mb-2 lg:border-solid lg:border-2 lg:w-48   px-3 py-2 border-none font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
                 type="button"
               >
                 <span className="sr-only">Open user menu</span>
