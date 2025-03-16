@@ -94,7 +94,7 @@ const Signin = () => {
             </span>
           </div>
           {errormessage && (
-            <Alert className="mt-5" color="failure">
+            <Alert className="mt-5 bg-red-200 text-red-600 font-bold w-full lg:w-3/5 md:w-3/5" >
               {errormessage}
             </Alert>
           )}
