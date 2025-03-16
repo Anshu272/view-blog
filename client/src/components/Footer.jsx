@@ -5,7 +5,7 @@ import React from 'react';
 
 const Footercomp = () => {
   return (
-    <Footer className='w-[100%] border flex flex-col border-teal-500 border-t-8 min-h-[30vh] box-border bg-white text-gray-700 dark:text-gray-200 dark:bg-[rgb(16,23,42)]'>
+    <Footer className='w-[100%] border flex flex-col mt-5 border-teal-500 border-t-8 min-h-[30vh] box-border bg-white text-gray-700 dark:text-gray-200 dark:bg-[rgb(16,23,42)] '>
       {/* Footer Content */}
       <div className='px-4 sm:px-10 pt-10 pb-10 w-full'>
         {/* Logo */}

@@ -246,7 +246,7 @@ try {
                 </Button></Link>}
 
 
-        <div className="text-red-500 flex w-[90%] max-w-[600px] justify-between mb-20  ">
+        <div className="text-red-500 flex w-[90%] max-w-[600px] justify-between mb-6  ">
           <span className="cursor-pointer" onClick={()=>setShowModal(true)}>Delete Account</span>
           <span className="cursor-pointer" onClick={handleSignOut}>Sign Out</span>
         </div>
