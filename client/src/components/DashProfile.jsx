@@ -24,7 +24,7 @@ import "react-circular-progressbar/dist/styles.css";
 
 export default function DashProfile() {
   const { currentUser,error,loading} = useSelector((state) => state.user);
-  const [imgurl, setimgurl] = useState(null);
+  const [imgurl, setimgurl] = useState(null );
   const [imgfile, setimgfile] = useState(null);
   const [imgfileupload, setimgfileupload] = useState(null);
   const [imgfilerr, setimgfilerr] = useState(null);
@@ -157,6 +157,7 @@ try {
   
 }
   }
+  console.log(imgfileupload)
 
   return (
     <div className=" pl-5 w-full pr-5 pt-8 ">
@@ -176,7 +177,7 @@ try {
           className="w-32 h-32 rounded-full object-contain border-2 border-gray-400 dark:border-white cursor-pointer relative"
           onClick={() => filepick.current.click()}
         >
-          {imgfileupload && (
+          {imgfileupload && imgfileupload!='100' && (
             <div className="absolute inset-0 w-full h-full  justify-center">
               <CircularProgressbar
                 className={imgfileupload === 100 ? hidden : ""}
@@ -245,7 +246,7 @@ try {
                 </Button></Link>}
 
 
-        <div className="text-red-500 flex w-[90%] max-w-[600px] justify-between  ">
+        <div className="text-red-500 flex w-[90%] max-w-[600px] justify-between mb-20  ">
           <span className="cursor-pointer" onClick={()=>setShowModal(true)}>Delete Account</span>
           <span className="cursor-pointer" onClick={handleSignOut}>Sign Out</span>
         </div>

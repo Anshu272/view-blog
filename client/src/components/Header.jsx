@@ -84,7 +84,7 @@ const Header = () => {
           />
         </form>
         <NavLink to="/search">
-          <Button className="w-12 h-10 lg:hidden text-gray " pill>
+          <Button className="w-10 h-8 lg:hidden text-gray " pill>
             <AiOutlineSearch />
           </Button>
         </NavLink>
@@ -174,6 +174,7 @@ const Header = () => {
                       <Link
                         to="/dashboard?tab=profile"
                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        onClick={()=>setIsDropdownOpen(false)}
                       >
                         Your Profile
                       </Link>
