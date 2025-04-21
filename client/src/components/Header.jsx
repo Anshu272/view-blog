@@ -68,9 +68,10 @@ const Header = () => {
         {/* Logo */}
         <Link
           to={"/"}
-          className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 rounded-lg lg:text-lg px-5 py-2.5 text-center me-2 mb-2 lg:w-auto w-24 text-xs font-bold"
-        >
-          ViewBlog
+          className="pl-4"
+          >
+          <span className=" text-5xl text-blue-500">V</span>
+          <span>Blog</span>
         </Link>
 
         {/* Search Bar */}
@@ -123,7 +124,7 @@ const Header = () => {
             className="rounded-3xl lg:w-14 lg:h-10 w-10 h-8 flex justify-center  items-center mr-5"
             onClick={() => dispatch(toogletheme())}
           >
-            <AiOutlineMoon className="w-7 h-7 fill-black dark:fill-white" />
+            <AiOutlineMoon className="w-7 p-1  h-7 fill-black dark:fill-white"  />
           </Button>
           {currentUser ? (
             <div className="relative">
@@ -191,7 +192,7 @@ const Header = () => {
             </div>
           ) : (
             <Link to={"/signin"}>
-              <Button className="bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-extrabold rounded-lg px-4 py-0.5 text-center me-2 mb-2 m-3 text-white">
+              <Button className=" text-sm h-10 w-20 bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-extrabold rounded-lg px-4 py-0.5 text-center  mb-2 my-3 text-white">
                 Signin
               </Button>
             </Link>
@@ -212,8 +213,8 @@ const Header = () => {
       {/* Navigation Links (Mobile) */}
       {isMobileMenuOpen && (
         <nav className="lg:hidden mt-4">
-          <ul className="flex flex-col gap-4 font-semibold text-md mb-2">
-            <li>
+          <ul className="flex flex-col gap-4 font-semibold text-md mb-2 ">
+            <li className="">
               <NavLink
                 to="/"
                 className={({ isActive }) =>
