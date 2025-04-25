@@ -7,15 +7,14 @@ const Footercomp = () => {
   return (
     <Footer className='w-[100%] border flex flex-col mt-5 border-teal-500 border-t-8 min-h-[30vh] box-border bg-white text-gray-700 dark:text-gray-200 dark:bg-[rgb(16,23,42)] '>
       {/* Footer Content */}
-      <div className='px-4 sm:px-10 pt-10 pb-10 w-full'>
+      <div className='px-4 sm:px-10 pt-5 pb-10 w-full'>
         {/* Logo */}
-        <Link
-          to={"/"}
-          className='text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2 font-bold'
-        >
-          ViewBlog
-        </Link>
-
+       <Link
+             to={"/"}
+             >
+             <span className=" text-5xl font-bold text-blue-500">V</span>
+             <span className='font-bold'>Blog</span>
+           </Link>
         {/* Footer Links */}
         <div className='grid grid-cols-2 md:grid-cols-3 mt-10 gap-8'>
           {/* Column 1 */}

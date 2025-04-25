@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toogletheme } from "../redux/theme/themeslice";
 import { signoutSuccess } from "../redux/user/userslice";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FiX } from "react-icons/fi";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -15,7 +16,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -24,14 +25,6 @@ const Header = () => {
       setSearchTerm(searchTermFromUrl);
     }
   }, [location.search]);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen); // Toggle mobile menu
-  };
 
   const handleSignout = async () => {
     try {
@@ -58,199 +51,221 @@ const Header = () => {
   };
 
   return (
-    <div
-      className={`flex flex-col pt-2 lg:px-5 px-2 border-b-2 ${
-        isMobileMenuOpen ? "h-auto" : "h-20" // Adjust height based on mobile menu state
-      } transition-all duration-300`}
-    >
-      {/* Top Section (Logo, Search, User Actions) */}
-      <div className="flex justify-between items-center">
-        {/* Logo */}
-        <Link
-          to={"/"}
-          className="pl-4"
-          >
-          <span className=" text-5xl text-blue-500">V</span>
-          <span>Blog</span>
-        </Link>
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm">
+      <div className="container mx-auto px-4">
+        {/* Main Header Content */}
+        <div className="flex items-center justify-between h-16">
+          {/* Logo and Mobile Menu Button */}
+          <div className="flex items-center">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden mr-4 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+            >
+              {isMobileMenuOpen ? (
+                <FiX className="w-6 h-6" />
+              ) : (
+                <GiHamburgerMenu className="w-6 h-6" />
+              )}
+            </button>
 
-        {/* Search Bar */}
-        <form onSubmit={handleSubmit}>
-          <TextInput
-            type="text"
-            placeholder="Search..."
-            className="hidden lg:inline"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </form>
-        <NavLink to="/search">
-          <Button className="w-10 h-8 lg:hidden text-gray " pill>
-            <AiOutlineSearch />
-          </Button>
-        </NavLink>
-              {/* Navigation Links (Desktop) */}
-      <nav className="lg:flex gap-10 font-semibold text-md hidden">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? "text-blue-500" : "text-gray-500"
-          }
-        >
-          Home
-        </NavLink>
-        <NavLink
-          to="/About"
-          className={({ isActive }) =>
-            isActive ? "text-blue-500" : "text-gray-500"
-          }
-        >
-          About
-        </NavLink>
-        <NavLink
-          to="/Project"
-          className={({ isActive }) =>
-            isActive ? "text-blue-500" : "text-gray-500"
-          }
-        >
-          Project
-        </NavLink>
-      </nav>
-        
+            <Link
+              to={"/"}
+            >
+              <span className=" text-5xl font-bold text-blue-500">V</span>
+              <span className="font-bold">Blog</span>
+            </Link>
+          </div>
 
-        {/* User Actions */}
-        <div className="flex justify-center items-center">
-          <Button
-            className="rounded-3xl lg:w-14 lg:h-10 w-10 h-8 flex justify-center  items-center mr-5"
-            onClick={() => dispatch(toogletheme())}
-          >
-            <AiOutlineMoon className="w-7 p-1  h-7 fill-black dark:fill-white"  />
-          </Button>
-          {currentUser ? (
-            <div className="relative">
-              <div
-                onClick={toggleDropdown}
-                className="flex items-center text-sm pe-1 mb-2 lg:border-solid lg:border-2 lg:w-48   px-3 py-2 border-none font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
-                type="button"
-              >
-                <span className="sr-only">Open user menu</span>
-                <Avatar
-                  img={
-                    currentUser?.profilePicture ||
-                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                  }
-                  alt="User"
-                  rounded={true}
-                  className="w-10 h-10 lg:me-2"
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-8">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `px-1 py-2 font-medium transition-colors duration-200 ${isActive
+                  ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
+                  : "text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+                }`
+              }
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `px-1 py-2 font-medium transition-colors duration-200 ${isActive
+                  ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
+                  : "text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+                }`
+              }
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/project"
+              className={({ isActive }) =>
+                `px-1 py-2 font-medium transition-colors duration-200 ${isActive
+                  ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
+                  : "text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+                }`
+              }
+            >
+              Projects
+            </NavLink>
+          </nav>
+
+          {/* Search and User Actions */}
+          <div className="flex items-center space-x-4">
+            {/* Search Bar - Desktop */}
+            <form onSubmit={handleSubmit} className="hidden lg:block">
+              <div className="relative">
+                <TextInput
+                  type="text"
+                  placeholder="Search..."
+                  className="w-64"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <div className="lg:flex items-center hidden">
-                  <span className="mr-2">{currentUser?.username}</span>
+                <button
+                  type="submit"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-500"
+                >
+                  <AiOutlineSearch className="w-5 h-5" />
+                </button>
+              </div>
+            </form>
+
+            {/* Search Button - Mobile */}
+            <Link
+              to="/search"
+              className="lg:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+            >
+              <AiOutlineSearch className="w-5 h-5" />
+            </Link>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={() => dispatch(toogletheme())}
+              className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              <AiOutlineMoon className="w-5 h-5" />
+            </button>
+
+            {/* User Profile */}
+            {currentUser ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center px-3 py-2 space-x-2 focus:outline-none ml-4 border border-gray-300 dark:border-gray-600 rounded-full hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-200"
+                >
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden"> {/* Container for perfect circle */}
+                    <img
+                      src={currentUser?.profilePicture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+                      alt="User"
+                      className="w-full h-full object-cover" /* Ensures image fills circle */
+                    />
+                  </div>
+                  <span className="hidden lg:inline font-medium text-gray-700 dark:text-gray-200">
+                    {currentUser.username}
+                  </span>
                   <svg
-                    className="w-2.5 h-2.5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
+                    className={`w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""
+                      }`}
                     fill="none"
-                    viewBox="0 0 10 6"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
                     <path
-                      stroke="currentColor"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 4 4 4-4"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
                     />
                   </svg>
-                </div>
-              </div>
+                </button>
 
-              {isDropdownOpen && (
-                <div className="absolute right-0 z-10 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                  <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                    <div className="truncate">
-                      {currentUser?.email || "name@flowbite.com"}
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700">
+                    <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">
+                        {currentUser.email}
+                      </p>
                     </div>
+                    <Link
+                      to="/dashboard?tab=profile"
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      Your Profile
+                    </Link>
+                    <button
+                      onClick={handleSignout}
+                      className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                    >
+                      Sign Out
+                    </button>
                   </div>
-                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-                    <li>
-                      <Link
-                        to="/dashboard?tab=profile"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                        onClick={()=>setIsDropdownOpen(false)}
-                      >
-                        Your Profile
-                      </Link>
-                    </li>
-                  </ul>
-                  <div
-                    className="text-sm block px-4 py-2 hover:bg-red-500 hover:text-white dark:hover:bg-red-500 dark:hover:text-white"
-                    onClick={handleSignout}
-                  >
-                    SignOut
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            <Link to={"/signin"}>
-              <Button className=" text-sm h-10 w-20 bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-extrabold rounded-lg px-4 py-0.5 text-center  mb-2 my-3 text-white">
-                Signin
-              </Button>
-            </Link>
-          )}
+                )}
+              </div>
+            ) : (
+              <Link to="/signin">
+                <Button gradientMonochrome="info" size="sm" className="hidden lg:block">
+                  Sign In
+                </Button>
+                <Button gradientMonochrome="info" size="xs" pill className="lg:hidden">
+                  Sign In
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
 
-        {/* Hamburger Menu Toggle */}
-        <div className="lg:hidden">
-          <GiHamburgerMenu
-            className="w-6 h-6 mr-2 cursor-pointer"
-            onClick={toggleMobileMenu}
-          />
-        </div>
-      </div>
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden py-4 space-y-4 border-t border-gray-200 dark:border-gray-700">
 
-
-
-      {/* Navigation Links (Mobile) */}
-      {isMobileMenuOpen && (
-        <nav className="lg:hidden mt-4">
-          <ul className="flex flex-col gap-4 font-semibold text-md mb-2 ">
-            <li className="">
+            <nav className="flex flex-col space-y-2 px-2">
               <NavLink
                 to="/"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  isActive ? "text-blue-500" : "text-gray-500"
+                  `px-3 py-2 rounded-md font-medium ${isActive
+                    ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
                 }
-                onClick={toggleMobileMenu}
               >
                 Home
               </NavLink>
-            </li>
-            <li>
               <NavLink
-                to="/About"
+                to="/about"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  isActive ? "text-blue-500" : "text-gray-500"
+                  `px-3 py-2 rounded-md font-medium ${isActive
+                    ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
                 }
-                onClick={toggleMobileMenu}
               >
                 About
               </NavLink>
-            </li>
-            <li>
               <NavLink
-                to="/Project"
+                to="/project"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  isActive ? "text-blue-500" : "text-gray-500"
+                  `px-3 py-2 rounded-md font-medium ${isActive
+                    ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
                 }
-                onClick={toggleMobileMenu}
               >
-                Project
+                Projects
               </NavLink>
-            </li>
-          </ul>
-        </nav>
-      )}
-    </div>
+            </nav>
+          </div>
+        )}
+      </div>
+    </header>
   );
 };
 
