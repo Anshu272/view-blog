@@ -250,7 +250,7 @@ const Header = () => {
                 About
               </NavLink>
               <NavLink
-                to="/project"
+                to="/search"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
                   `px-3 py-2 rounded-md font-medium ${isActive
@@ -259,7 +259,7 @@ const Header = () => {
                   }`
                 }
               >
-                Projects
+                Blogs
               </NavLink>
             </nav>
           </div>

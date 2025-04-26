@@ -21,7 +21,7 @@ const Footercomp = () => {
           <div>
             <Footer.Title title='About' />
             <Footer.LinkGroup col>
-              <Footer.Link href=''>
+              <Footer.Link href='/search'  className='cursor-pointer hover:text-blue-400'>
                 Blogs 
               </Footer.Link>
             </Footer.LinkGroup>
@@ -31,10 +31,10 @@ const Footercomp = () => {
           <div>
             <Footer.Title title='Resources' />
             <Footer.LinkGroup col>
-              <Footer.Link href=''>
+              <Footer.Link  className='cursor-pointer hover:text-blue-400' >
                 Discord
               </Footer.Link>
-              <Footer.Link href=''>
+              <Footer.Link  className='cursor-pointer hover:text-blue-400' >
                 Instagram
               </Footer.Link>
             </Footer.LinkGroup>
@@ -44,10 +44,10 @@ const Footercomp = () => {
           <div>
             <Footer.Title title='Legal' />
             <Footer.LinkGroup col>
-              <Footer.Link href=''>
+              <Footer.Link  className='cursor-pointer hover:text-blue-400'>
                 Privacy Policy
               </Footer.Link>
-              <Footer.Link href=''>
+              <Footer.Link   className='cursor-pointer hover:text-blue-400'>
                 Terms & Conditions
               </Footer.Link>
             </Footer.LinkGroup>
@@ -63,18 +63,17 @@ const Footercomp = () => {
         <div className='flex items-center justify-between'>
           {/* Copyright */}
           <Footer.Copyright
-            href='#'
             by="ViewBlog"
             year={new Date().getFullYear()}
           />
 
           {/* Social Icons */}
-          <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-start">
-            <Footer.Icon href='#' icon={BsFacebook} />
-            <Footer.Icon href='#' icon={BsInstagram} />
-            <Footer.Icon href='#' icon={BsTwitter} />
-            <Footer.Icon href='#' icon={BsGithub} />
-            <Footer.Icon href='#' icon={BsDribbble} />
+          <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-start ">
+            <Footer.Icon icon={BsFacebook} />
+            <Footer.Icon icon={BsInstagram} />
+            <Footer.Icon icon={BsTwitter} />
+            <Footer.Icon icon={BsGithub} />
+            <Footer.Icon icon={BsDribbble} />
           </div>
         </div>
       </div>

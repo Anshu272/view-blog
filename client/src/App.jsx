@@ -4,7 +4,6 @@ import { BrowserRouter,Route,Routes } from 'react-router-dom'
 import About from './Pages/About'
 import Dashboard from './Pages/Dashboard'
 import Home from './Pages/Home'
-import Project from './Pages/Project'
 import Signin from './Pages/Signin'
 import Signup from './Pages/Signup'
 import Footercomp from './components/Footer'
@@ -15,7 +14,7 @@ import UpdatePost from './Pages/UpdatePost'
 import PostPage from './Pages/PostPage'
 import ScrollToTop from './components/ScrollToTop'
 import Search from './Pages/Search'
-import Projects from './Pages/Project'
+
 import AuthPrivateRoute from './components/AuthPrivateRoute'
 
 const App = () => {
@@ -26,12 +25,11 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />}>     </Route>
       <Route path="/About" element={<About />}>     </Route>
-      
+
       <Route element={<AuthPrivateRoute />}>
       <Route path="/signup" element={<Signup />}>     </Route>
       <Route path="/signin" element={<Signin />}>     </Route>
       </Route>
-      <Route path="/Project" element={<Projects />}>     </Route>
 
       <Route element={<PrivateRoute />}>
       <Route path="/dashboard" element={<Dashboard />}>     </Route>
