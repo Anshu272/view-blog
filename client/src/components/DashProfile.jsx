@@ -196,8 +196,8 @@ try {
             </div>
           )}
           <img
-            src={imgurl || currentUser.profilePicture }
-            alt="/default.png"
+            src={imgurl || currentUser.profilePicture || "/default.png"}
+            alt="avatar"
             className={`w-full h-full rounded-full ${
               imgfileupload && imgfileupload < 100 && "opacity-60"
             }`}

@@ -160,7 +160,7 @@ const Header = () => {
                   <div className="relative w-8 h-8 rounded-full overflow-hidden"> {/* Container for perfect circle */}
                     <img
                       src={currentUser?.profilePicture || "/default.png"}
-                      alt="/default.png"
+                      alt="avatar"
                       className="w-full h-full object-cover" /* Ensures image fills circle */
                     />
                   </div>
