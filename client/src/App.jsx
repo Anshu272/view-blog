@@ -16,6 +16,7 @@ import PostPage from './Pages/PostPage'
 import ScrollToTop from './components/ScrollToTop'
 import Search from './Pages/Search'
 import Projects from './Pages/Project'
+import AuthPrivateRoute from './components/AuthPrivateRoute'
 
 const App = () => {
   return (
@@ -25,8 +26,11 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />}>     </Route>
       <Route path="/About" element={<About />}>     </Route>
+      
+      <Route element={<AuthPrivateRoute />}>
       <Route path="/signup" element={<Signup />}>     </Route>
       <Route path="/signin" element={<Signin />}>     </Route>
+      </Route>
       <Route path="/Project" element={<Projects />}>     </Route>
 
       <Route element={<PrivateRoute />}>

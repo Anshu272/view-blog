@@ -18,8 +18,8 @@ const Signin = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    if ( !formdata.email || !formdata.password) {
-      dispatch(Signinfailure("please fill out all fields"));
+    if (!formdata.email || !formdata.password) {
+      dispatch(Signinfailure("Please fill out all fields"));
       return;
     }
     try {
@@ -37,67 +37,89 @@ const Signin = () => {
         dispatch(Signinfailure(data.errmsg));
       }
     } catch (error) {
-      dispatch(Signinfailure("something went wrong"));
+      dispatch(Signinfailure("Something went wrong"));
     }
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-row">
-      <div className="w-full md:w-1/2 flex justify-center pt-20 md:pt-60">
-        <div className="text-white mb-10 bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 rounded-full text-4xl md:text-5xl px-5 py-2.5 text-center font-extrabold w-4/5 md:w-1/2 h-[25%] md:h-[40%] lg:h-1/5 flex justify-center items-center">
-          View Blog
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-lg shadow-xl">
+        <div className="text-center">
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            Sign in to your account
+          </h2>
         </div>
-      </div>
-      <div className="w-full md:w-1/2 flex justify-center pt-8 md:pt-[15vh] px-4 md:px-9">
-        <form className="flex flex-col gap-4 w-full md:pl-14" onSubmit={handlesubmit}>
-          <div className="w-full">
-            <Label>Email</Label>
-            <TextInput
-              type="email"
-              placeholder="Enter Your Email"
-              className="w-full md:w-3/5"
-              onChange={handleform}
-              id="email"
-            />
-          </div>
-          <div className="w-full">
-            <Label>Password</Label>
-            <TextInput
-              type="password"
-              placeholder="Enter Your Password"
-              className="w-full md:w-3/5"
-              onChange={handleform}
-              id="password"
-            />
-          </div>
-          <Button
-            className="bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-extrabold rounded-lg text-l px-5 py-2.5 text-center mt-4 text-white w-full md:w-3/5 h-12 flex justify-center items-center"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Spinner className="w-6 h-6 pr-2" />
-                <span>Loading...</span>
-              </>
-            ) : (
-              "Signin"
-            )}
-          </Button>
-          <OAuth />
-          <div className="mb-10">
-            Don't have an account?
-            <span>
-              <Link to="/signup" className="text-blue-500">
-                Signup
-              </Link>
-            </span>
-          </div>
+
+        <form className="mt-8 space-y-6" onSubmit={handlesubmit}>
           {errormessage && (
-            <Alert className="mt-5 bg-red-200 text-red-600 font-bold w-full lg:w-3/5 md:w-3/5" >
+            <Alert color="failure" className="mb-4">
               {errormessage}
             </Alert>
           )}
+          
+          <div className="rounded-md shadow-sm space-y-4">
+            <div>
+              <Label htmlFor="email" value="Email address" />
+              <TextInput
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                placeholder="Enter your email"
+                onChange={handleform}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="password" value="Password" />
+              <TextInput
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                placeholder="Enter your password"
+                onChange={handleform}
+                className="mt-1"
+              />
+            </div>
+          </div>
+
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-extrabold rounded-lg text-l px-5 py-2.5 text-center text-white h-12"
+          >
+            {loading ? (
+              <>
+                <Spinner className="mr-2" />
+                Signing in...
+              </>
+            ) : (
+              'Sign in'
+            )}
+          </Button>
+
+          <div className="text-center text-sm">
+            Don't have an account?{' '}
+            <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+              Sign up
+            </Link>
+          </div>
+          
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+            </div>
+          </div>
+
+          <div className="w-[100%]">
+            <OAuth />
+          </div>
         </form>
       </div>
     </div>

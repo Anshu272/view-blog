@@ -101,7 +101,7 @@ const Header = () => {
               About
             </NavLink>
             <NavLink
-              to="/project"
+              to="/search"
               className={({ isActive }) =>
                 `px-1 py-2 font-medium transition-colors duration-200 ${isActive
                   ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
@@ -109,7 +109,7 @@ const Header = () => {
                 }`
               }
             >
-              Projects
+              Blogs
             </NavLink>
           </nav>
 
@@ -159,8 +159,8 @@ const Header = () => {
                 >
                   <div className="relative w-8 h-8 rounded-full overflow-hidden"> {/* Container for perfect circle */}
                     <img
-                      src={currentUser?.profilePicture || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
-                      alt="User"
+                      src={currentUser?.profilePicture || "/default.png"}
+                      alt="/default.png"
                       className="w-full h-full object-cover" /* Ensures image fills circle */
                     />
                   </div>
@@ -209,10 +209,10 @@ const Header = () => {
               </div>
             ) : (
               <Link to="/signin">
-                <Button gradientMonochrome="info" size="sm" className="hidden lg:block">
+                <Button gradientMonochrome="info" size="sm" className="hidden  text-black dark:text-white light:text-black lg:block">
                   Sign In
                 </Button>
-                <Button gradientMonochrome="info" size="xs" pill className="lg:hidden">
+                <Button gradientMonochrome="info" size="xs" pill className=" text-black dark:text-white  lg:hidden">
                   Sign In
                 </Button>
               </Link>

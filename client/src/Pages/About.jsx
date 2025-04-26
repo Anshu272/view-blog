@@ -1,14 +1,20 @@
+import { Link } from "react-router-dom";
 export default function About() {
   return (
     <div className='min-h-screen flex items-center justify-center'>
       <div className='max-w-2xl mx-auto p-3 text-center'>
         <div>
-          <h1 className='text-3xl font font-semibold text-center my-7'>
-            About View  Blog
+          <h1 className='text-3xl font font-bold text-center my-7'>
+            About     <Link
+                          to={"/"}
+                        >
+                          <span className=" ml-2 text-5xl font-bold text-blue-500">V</span>
+                          <span className="font-bold">Blog</span>
+                        </Link>
           </h1>
           <div className='text-md text-gray-500 flex flex-col gap-6'>
             <p>
-              Welcome to View Blog! This blog was created by Anshu
+              Welcome to <span className="font-bold text-lg text-blue-400">V</span>Blog! This blog was created by Anshu
               as a personal project to share his thoughts and ideas with the
               world.
             </p>

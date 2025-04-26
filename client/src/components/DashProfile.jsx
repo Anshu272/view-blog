@@ -157,7 +157,6 @@ try {
   
 }
   }
-  console.log(imgfileupload)
 
   return (
     <div className=" pl-5 w-full pr-5 pt-8 ">
@@ -197,7 +196,8 @@ try {
             </div>
           )}
           <img
-            src={imgurl || currentUser.profilePicture}
+            src={imgurl || currentUser.profilePicture }
+            alt="/default.png"
             className={`w-full h-full rounded-full ${
               imgfileupload && imgfileupload < 100 && "opacity-60"
             }`}
@@ -274,7 +274,7 @@ try {
       >
         <Modal.Header />
         <Modal.Body>
-          <div className='text-center'>
+          <div className='text-center p-4'>
             <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
               Are you sure you want to delete your account?
             </h3>

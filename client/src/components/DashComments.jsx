@@ -144,7 +144,7 @@ export default function DashComments() {
       >
         <Modal.Header />
         <Modal.Body>
-          <div className='text-center'>
+          <div className='text-center p-4'>
             <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
               Are you sure you want to delete this post?
             </h3>
