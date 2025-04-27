@@ -42,10 +42,10 @@ const Signin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-lg shadow-xl">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-10 rounded-lg shadow-xl">
         <div className="text-center">
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
             Sign in to your account
           </h2>
         </div>
@@ -56,10 +56,10 @@ const Signin = () => {
               {errormessage}
             </Alert>
           )}
-          
+
           <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <Label htmlFor="email" value="Email address" />
+              <Label htmlFor="email" value="Email address" className="dark:text-gray-300" />
               <TextInput
                 id="email"
                 name="email"
@@ -68,11 +68,11 @@ const Signin = () => {
                 required
                 placeholder="Enter your email"
                 onChange={handleform}
-                className="mt-1"
+                className="mt-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <div>
-              <Label htmlFor="password" value="Password" />
+              <Label htmlFor="password" value="Password" className="dark:text-gray-300" />
               <TextInput
                 id="password"
                 name="password"
@@ -81,7 +81,7 @@ const Signin = () => {
                 required
                 placeholder="Enter your password"
                 onChange={handleform}
-                className="mt-1"
+                className="mt-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
           </div>
@@ -101,19 +101,19 @@ const Signin = () => {
             )}
           </Button>
 
-          <div className="text-center text-sm">
+          <div className="text-center text-sm text-gray-500 dark:text-gray-400">
             Don't have an account?{' '}
-            <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-400">
               Sign up
             </Link>
           </div>
-          
+
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
+              <div className="w-full border-t border-gray-300 dark:border-gray-700" />
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+            <div className="relative flex justify-center text-sm text-gray-500 dark:text-gray-400">
+              <span className="px-2 bg-white dark:bg-gray-800">Or continue with</span>
             </div>
           </div>
 
