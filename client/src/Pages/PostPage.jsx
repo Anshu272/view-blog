@@ -60,14 +60,14 @@ export default function PostPage() {
     );
   return (
     <main className='p-3 flex flex-col lg:max-w-6xl mx-auto min-h-screen'>
-      <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>
+      <h1 className='text-3xl mt-10 p-3  text-center font-serif max-w-2xl mx-auto lg:text-4xl'>
         {post && post.title}
       </h1>
       <Link
         to={`/search?category=${post && post.category}`}
         className='self-center mt-5'
       >
-        <Button className='rounded-full text-gray-500 w-32 h-5' pill size='xs'>
+        <Button className='rounded-full text-gray-500 w-32 h-6' pill size='xs'>
           {post && post.category}
         </Button>
       </Link>
