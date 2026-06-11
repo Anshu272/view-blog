@@ -3,13 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate,Link} from "react-router-dom";
 
-import {
-  getDownloadURL,
-  getStorage,
-  uploadBytesResumable,
-  ref,
-} from "firebase/storage";
-import { app } from "../firebase";
+
 import { CircularProgressbar } from "react-circular-progressbar";
 import {
   Updatefailure,
@@ -45,33 +39,68 @@ export default function DashProfile() {
 
   const uploadimage = async () => {
     setimgfilerr(null);
-    const storage = getStorage(app);
-    const filename = new Date().getTime() + imgfile.name;
-    const storageref = ref(storage, filename);
-    const uploadTask = uploadBytesResumable(storageref, imgfile);
-    console.log(imgfileupload, imgfilerr);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setimgfileupload(progress.toFixed(0));
-      },
-      (error) => {
-        setimgfilerr("could not get");
+    setimageFileUploading(true);
+    try {
+      const url = `https://api.cloudinary.com/v1_1/dgywojrv0/image/upload`;
+      const apiKey = '246991338712287';
+      const apiSecret = 'bQ6FNPnEdYErogsXImunZ1vAK8A';
+      const timestamp = Math.round((new Date).getTime()/1000);
+      const signatureString = `timestamp=${timestamp}${apiSecret}`;
+      
+      const encoder = new TextEncoder();
+      const data = encoder.encode(signatureString);
+      const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const signature = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+      const uploadData = new FormData();
+      uploadData.append('file', imgfile);
+      uploadData.append('api_key', apiKey);
+      uploadData.append('timestamp', timestamp);
+      uploadData.append('signature', signature);
+      
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+          const progress = (e.loaded / e.total) * 100;
+          setimgfileupload(progress.toFixed(0));
+        }
+      };
+      
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          setimgurl(response.secure_url);
+          setformData((prev) => ({ ...prev, profilePicture: response.secure_url }));
+          setimageFileUploading(false);
+        } else {
+          setimgfilerr("could not upload image");
+          setimgfileupload(null);
+          setimgfile(null);
+          setimgurl(null);
+          setimageFileUploading(false);
+        }
+      };
+      
+      xhr.onerror = () => {
+        setimgfilerr("could not upload image");
         setimgfileupload(null);
         setimgfile(null);
         setimgurl(null);
         setimageFileUploading(false);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setimgurl(downloadURL);
-          setformData({ ...formData, profilePicture: downloadURL });
-          setimageFileUploading(false);
-        });
-      }
-    );
+      };
+      
+      xhr.send(uploadData);
+    } catch (error) {
+      setimgfilerr("could not upload image");
+      setimgfileupload(null);
+      setimgfile(null);
+      setimgurl(null);
+      setimageFileUploading(false);
+      console.log(error);
+    }
   };
 
   const handleImage = (e) => {

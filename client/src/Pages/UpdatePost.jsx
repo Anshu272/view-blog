@@ -1,12 +1,6 @@
 import React, { useState ,useEffect} from 'react'
 import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from 'firebase/storage';
-import { app } from '../firebase';
+
 import { CircularProgressbar } from 'react-circular-progressbar';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -54,30 +48,53 @@ export default function UpdatePost() {
         return;
       }
       setImageUploadError(null);
-      const storage = getStorage(app);
-      const fileName = new Date().getTime() + '-' + file.name;
-      const storageRef = ref(storage, fileName);
-      console.log(storageRef)
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      
+      const url = `https://api.cloudinary.com/v1_1/dgywojrv0/image/upload`;
+      const apiKey = '246991338712287';
+      const apiSecret = 'bQ6FNPnEdYErogsXImunZ1vAK8A';
+      const timestamp = Math.round((new Date).getTime()/1000);
+      const signatureString = `timestamp=${timestamp}${apiSecret}`;
+      
+      const encoder = new TextEncoder();
+      const data = encoder.encode(signatureString);
+      const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const signature = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+      const uploadData = new FormData();
+      uploadData.append('file', file);
+      uploadData.append('api_key', apiKey);
+      uploadData.append('timestamp', timestamp);
+      uploadData.append('signature', signature);
+      
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+          const progress = (e.loaded / e.total) * 100;
           setImageUploadProgress(progress.toFixed(0));
-        },
-        (error) => {
+        }
+      };
+      
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          setImageUploadProgress(null);
+          setImageUploadError(null);
+          setFormData((prev) => ({ ...prev, image: response.secure_url }));
+        } else {
           setImageUploadError('Image upload failed');
           setImageUploadProgress(null);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageUploadProgress(null);
-            setImageUploadError(null);
-            setFormData({ ...formData, image: downloadURL });
-          });
         }
-      );
+      };
+      
+      xhr.onerror = () => {
+        setImageUploadError('Image upload failed');
+        setImageUploadProgress(null);
+      };
+      
+      xhr.send(uploadData);
     } catch (error) {
       setImageUploadError('Image upload failed');
       setImageUploadProgress(null);
