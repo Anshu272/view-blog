@@ -143,7 +143,7 @@ export default function DashboardComp() {
               {users && users.map((user) => (
                 <tr key={user._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <td className="px-6 py-4">
-                    <img src={user.profilePicture} alt="user" className="w-10 h-10 rounded-full bg-gray-500" />
+                    <img src={user.profilePicture || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="user" className="w-10 h-10 rounded-full bg-gray-500" />
                   </td>
                   <td className="px-6 py-4">{user.username}</td>
                 </tr>

@@ -12,11 +12,11 @@ import job from './crons/crons.js'
 const app=express()
 configDotenv()
 job.start()
-
+console.log(process.env.JWT_SECRET);
 app.use(express.json())
 app.use(cookieParser())
-
-mongoose.connect(process.env.MONGO)
+const mongoUri=process.env.MONGO;
+mongoose.connect(mongoUri)
 .then(()=>{
     console.log('connected')
 })
@@ -25,10 +25,11 @@ mongoose.connect(process.env.MONGO)
 })
 
 const __dirname = path.resolve();
-app.listen(3000,()=>{
-    console.log("hello")  
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, ()=>{
+    console.log(`Server listening on port ${PORT}`)
 });
-app.use("/api/user",router)
+app.use("/api/user",router) 
 app.use("/api/auth",auth)
 app.use("/api/auth",auth)
 app.use("/api/post",post)

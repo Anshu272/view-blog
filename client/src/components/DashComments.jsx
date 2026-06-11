@@ -34,10 +34,10 @@ export default function DashComments() {
     }
   }, [currentUser._id]);
   const handleShowMore = async () => {
-    const startIndex = userPosts.length;
+    const startIndex = userComments.length;
     try {
       const res = await fetch(
-        `/api/post/getcomments?startIndex=${startIndex}`
+        `/api/comment/getcomments?startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -146,7 +146,7 @@ export default function DashComments() {
         <Modal.Body>
           <div className='text-center p-4'>
             <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
-              Are you sure you want to delete this post?
+              Are you sure you want to delete this comment?
             </h3>
             <div className='flex justify-center gap-4'>
               <Button className="bg-red-600 text-white " onClick={handleDeleteComment}>

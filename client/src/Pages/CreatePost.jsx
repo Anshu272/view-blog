@@ -29,7 +29,6 @@ export default function CreatePost() {
       const storage = getStorage(app);
       const fileName = new Date().getTime() + '-' + file.name;
       const storageRef = ref(storage, fileName);
-      console.log(storageRef)
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
         'state_changed',
