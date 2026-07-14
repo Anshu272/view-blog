@@ -7,11 +7,10 @@ import cookieParser from 'cookie-parser'
 import post from './routes/post.route.js'
 import commentRoutes from './routes/comment.route.js'
 import path from 'path';
-import job from './crons/crons.js'
 
 const app=express()
 configDotenv()
-job.start()
+
 console.log(process.env.JWT_SECRET);
 app.use(express.json())
 app.use(cookieParser())
